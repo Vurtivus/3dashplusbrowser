@@ -47,6 +47,8 @@ function customParseResponse(data) {
     const difficultyLabels = ["Easy", "Normal", "Hard", "Harder", "Insane", "Demon"];
     const lines = data.split('\n').map(line => line.trim()).filter(line => line !== '');
 
+    const entries = data.split(/\n\d+\n/).filter(entry => entry.trim() !== "");
+
     const parsedData = [];
     let currentEntry = null;
 
