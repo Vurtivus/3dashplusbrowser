@@ -14,9 +14,19 @@
 </head>
 <body>
     <h1>3Dash+ Browser</h1>
+    <h2>Level Search with Name</h2>
     <input type="text" id="query" placeholder="Enter Level Name">
     <button onclick="searchAPI()" id="searchButton">Search</button>
     <ul id="results" class="level-list"></ul>
+    <br>
+    <br>
+    <h2>Level Search with ID</h2>
+    <input type="text" id="idquery" placeholder="Enter Level ID">
+    <button onclick="idsearchAPI()" id="idsearchButton">Search</button>
+    <div id="idResults" class="level-container">
+        <div class="level-info"></div>
+        <div class="level-analysis"></div>
+    </div>
 </body>
 <script src="script.js"></script>
 </html>
