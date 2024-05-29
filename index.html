@@ -7,26 +7,53 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <meta content="3Dash+ Browser" property="og:title" />
     <meta content="Search levels on 3Dash+. Made by Vurtivus" property="og:description" />
     <meta content="https://i.imgur.com/PznSDKy.png" property="og:image" />
     <meta content="#ffd500" data-react-helmet="true" name="theme-color" />
+    
 </head>
 <body>
-    <h1>3Dash+ Browser</h1>
-    <h2>Level Search with Name</h2>
-    <input type="text" id="query" placeholder="Enter Level Name">
-    <button onclick="searchAPI()" id="searchButton">Search</button>
-    <ul id="results" class="level-list"></ul>
-    <br>
-    <br>
-    <h2>Level Search with ID</h2>
-    <input type="text" id="idquery" placeholder="Enter Level ID">
-    <button onclick="idsearchAPI()" id="idsearchButton">Search</button>
-    <div id="idResults" class="level-container">
-        <div class="level-info"></div>
-        <div class="level-analysis"></div>
+    <div class="warning-topbar">
+        THIS IS FOR 3DASH+, NOT 3DASH NORMAL. 3DASH+ DOWNLOAD: <a href="https://3dash.mg95.dev" target="_blank">https://3dash.mg95.dev</a>
     </div>
+    <div class="container">
+        <div class="left-section">
+            <h1>
+                <img src="images/favicon.ico" alt="Favicon" style="vertical-align: middle; margin-right: 10px; width: 50px;">
+                3Dash+ Browser
+            </h1>
+            <h2>Level Search with Name</h2>
+            <input type="text" id="query" placeholder="Enter Level Name (ex: Silent Soul)">
+            <button onclick="searchAPI()" id="searchButton">
+                <i class="fas fa-search"></i> Search
+            </button>
+            <br><br>
+            <h2>Level Search with ID</h2>
+            <input type="text" id="idquery" placeholder="Enter Level ID (ex: 1488)">
+            <button onclick="idsearchAPI()" id="idsearchButton">
+                <i class="fas fa-search"></i> Search
+            </button>
+            <br><br>
+            <h5>version 2.0 - Made by Vurtivus</h5>
+        </div>
+        <div class="right-section">
+            <ul id="results" class="level-list"></ul>
+            <div id="idResults" class="level-container">
+                <div class="level-info"></div>
+                <div class="level-analysis"></div>
+            </div>
+            <div id="nameError" class="error-message" style="display: none;">
+                <img src="images/not-found-logo.png" alt="Not Found" class="error-logo">
+                <p>Level not found</p>
+            </div>
+            <div id="idError" class="error-message" style="display: none;">
+                <img src="images/not-found-logo.png" alt="Not Found" class="error-logo">
+                <p>Level not found</p>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
-<script src="script.js"></script>
 </html>

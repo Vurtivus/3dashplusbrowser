@@ -34,15 +34,20 @@ function setLoadingButton() {
 
 function resetSearchButton() {
     const searchButton = document.getElementById("searchButton");
-    searchButton.innerHTML = "Search";
+    searchButton.innerHTML = '<i class="fas fa-search"></i> Search';
     searchButton.disabled = false;
 }
 
 function searchAPI() {
     setLoadingButton();
 
+    const idResultsBox = document.getElementById("idResults");
+    idResultsBox.innerHTML = "";
+
     const query = document.getElementById("query").value;
     const apiUrl = `https://3dash.mg95.dev/search_levels?q=${query}&page=0`;
+
+    hideError('name');
 
     if (query.trim() === "") {
         alert("Please enter a level name.");
@@ -57,16 +62,18 @@ function searchAPI() {
 
             const extractedData = customParseResponse(data);
 
-            if (extractedData) {
+            if (extractedData && extractedData.length > 0) {
                 displayResults(extractedData);
             } else {
                 console.error("Error parsing the response data or no data found.");
+                showError('name');
             }
 
             resetSearchButton();
         })
         .catch(error => {
             console.error("Error:", error);
+            showError('name');
             resetSearchButton();
         });
 }
@@ -124,23 +131,49 @@ function displayResults(data) {
         const levelBox = document.createElement("li");
         levelBox.classList.add("level-box");
 
-        const difficultyImage = document.createElement("img");
-        difficultyImage.src = `images/difficulty_${entry.difficulty}.png`;
-        difficultyImage.alt = entry.difficulty;
-        difficultyImage.classList.add("difficulty-image");
+        if (entry.id === '6587' || entry.id === '6588' || entry.id === '6589') {
+            const specialImage = document.createElement("img");
+            specialImage.src = `images/ANGRY.png`;
+            specialImage.alt = `What did you do.`;
+            specialImage.classList.add("special-image");
+            levelBox.appendChild(specialImage);
 
-        const levelInfo = document.createElement("div");
-        levelInfo.innerHTML = `
-            <strong>ID:</strong> ${entry.id}<br>
-            <strong>Title:</strong> ${entry.title}<br>
-            <strong>Author:</strong> ${entry.author}<br>
-        `;
+            document.body.style.backgroundColor = "black";
+            const audio = new Audio('images/boom.mp3');
+            audio.play();
 
-        levelBox.appendChild(difficultyImage);
-        levelBox.appendChild(levelInfo);
+            setTimeout(() => {
+                document.body.style.backgroundColor = "";
+                audio.pause();
+            }, 5000);
+        } else {
+            const difficultyImage = document.createElement("img");
+            difficultyImage.src = `images/difficulty_${entry.difficulty}.png`;
+            difficultyImage.alt = entry.difficulty;
+            difficultyImage.classList.add("difficulty-image");
+
+            const levelInfo = document.createElement("div");
+            levelInfo.innerHTML = `
+                <div style="display: flex; align-items: center;">
+                    <strong>ID:</strong> ${entry.id}
+                    <button class="clipboard-button" onclick="copyToClipboard('${entry.id}')">
+                        <i class="fas fa-clipboard"></i>
+                    </button>
+                </div>
+                <strong>Title:</strong> ${entry.title}<br>
+                <strong>Author:</strong> ${entry.author}<br>
+            `;
+
+            levelBox.appendChild(difficultyImage);
+            levelBox.appendChild(levelInfo);
+        }
+
         resultsList.appendChild(levelBox);
     });
 }
+
+
+
 
 function setIdLoadingButton() {
     const idSearchButton = document.getElementById("idsearchButton");
@@ -150,15 +183,20 @@ function setIdLoadingButton() {
 
 function resetIdSearchButton() {
     const idSearchButton = document.getElementById("idsearchButton");
-    idSearchButton.innerHTML = "Search";
+    idSearchButton.innerHTML = '<i class="fas fa-search"></i> Search';
     idSearchButton.disabled = false;
 }
 
 function idsearchAPI() {
     setIdLoadingButton();
 
+    const resultsList = document.getElementById("results");
+    resultsList.innerHTML = "";
+
     const idQuery = document.getElementById("idquery").value;
     const apiUrl = "https://3dash.mg95.dev/get_json";
+
+    hideError('id');
 
     if (idQuery.trim() === "") {
         alert("Please enter a level ID.");
@@ -178,8 +216,8 @@ function idsearchAPI() {
     })
         .then(response => {
             if (response.status === 404) {
-                // Level Not Found, cancel the search and reset
                 resetIdSearchButton();
+                showError('id');
                 return Promise.reject({ detail: 'Level Not Found' });
             }
             return response.json();
@@ -188,29 +226,25 @@ function idsearchAPI() {
             console.log("API Response:", data);
 
             if (data) {
-                // Store the level data in the global variable
                 levelDataGlobal = data.levelData;
-
-                // Display ID search results
                 displayIdResults(data);
-
-                // Perform level analysis and display the results
                 analyzeLevelData(data.levelData);
             } else {
                 console.error("No data found for the given ID.");
+                showError('id');
             }
             resetIdSearchButton();
         })
         .catch(error => {
             if (error.detail === 'Level Not Found') {
-                // Handle the "Level Not Found" case
-                alert("Level Not Found");
+                showError('id');
             } else {
                 console.error("Error:", error);
-                resetIdSearchButton();
             }
+            resetIdSearchButton();
         });
 }
+
 
 function analyzeLevelData(levelData) {
     const blockIds = [
@@ -333,4 +367,28 @@ function playSong(songName, songStartTime, initialVolume = 0.25) {
     } else {
         console.error("Song not found:", songName);
     }
+}
+
+function showError(type) {
+    if (type === 'name') {
+        document.getElementById('nameError').style.display = 'block';
+    } else if (type === 'id') {
+        document.getElementById('idError').style.display = 'block';
+    }
+}
+
+function hideError(type) {
+    if (type === 'name') {
+        document.getElementById('nameError').style.display = 'none';
+    } else if (type === 'id') {
+        document.getElementById('idError').style.display = 'none';
+    }
+}
+
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        alert("Copied to clipboard: " + text);
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+    });
 }

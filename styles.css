@@ -2,54 +2,80 @@ a:link {
     color: dodgerblue;
     background-color: transparent;
     text-decoration: none;
-  }
-  
-  a:visited {
+}
+
+a:visited {
     color: darkblue;
     background-color: transparent;
     text-decoration: none;
-  }
-  
-  a:hover {
+}
+
+a:hover {
     color: dodgerblue;
     background-color: transparent;
     text-decoration: none;
-  }
+}
 
-  .container {
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Work Sans', sans-serif;
+}
+
+.warning-topbar {
+    background-color: rgb(0, 0, 0);
+    color: white;
     text-align: center;
+    padding: 10px;
+    font-weight: bold;
+    font-family: 'Work Sans', sans-serif;
+}
+
+.warning-topbar a {
+    color: white;
+    text-decoration: underline;
+}
+
+.container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: calc(100vh - 20px); /* Adjust for the footer's height */
+    width: 80%;
+    margin: 20px auto;
+}
+
+.left-section {
+    flex: 1;
+    padding-right: 20px;
+    text-align: left;
+}
+
+.right-section {
+    flex: 2;
+    border-left: 1px solid #ccc;
+    padding-left: 20px;
 }
 
 h1 {
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
-    text-align: center;
+    text-align: left;
 }
 
 h2 {
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
-    text-align: center;
+    text-align: left;
 }
 
 div {
     font-family: 'Work Sans', sans-serif;
     font-size: 20px;
-    padding: 15px;
-    margin: 30px;
-    text-align: left;
 }
 
 .level-box {
     border: 1px solid #ccc;
     margin: 10px auto;
     padding: 10px;
-    width: 300px auto;
+    width: 300px;
     text-align: left;
     background-color: #f5f5f5;
     position: relative;
@@ -66,9 +92,9 @@ div {
     right: 5px;
 }
 
-#query {
+#query, #idquery {
     display: block;
-    margin: 0 auto;
+    margin: 10px 0;
     padding: 10px;
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
@@ -76,27 +102,13 @@ div {
     border: 1px solid #ccc;
     border-radius: 5px;
     width: 300px;
-    text-align: center;
     transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-#idquery {
-    display: block;
-    margin: 0 auto;
-    padding: 10px;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 300px;
-    text-align: center;
-    transition: border-color 0.3s, box-shadow 0.3s;
+    text-align: left;
 }
 
 button {
     display: block;
-    margin: 10px auto;
+    margin: 10px 0;
     padding: 10px 20px;
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
@@ -109,15 +121,18 @@ button {
     transition: background-color 0.3s;
 }
 
+button i {
+    margin-right: 5px;
+}
+
 button:hover {
     background-color: #0056b3;
 }
 
-#query:focus {
+#query:focus, #idquery:focus {
     border-color: #007BFF;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
-
 
 .level-list {
     display: flex;
@@ -135,31 +150,20 @@ button:hover {
     }
 }
 
-/* Add this style to your existing CSS file or in a <style> tag in your HTML */
 .play-button {
     display: inline-flex;
     align-items: center;
     background: none;
     border: none;
     padding: 0;
-    margin-top: 5px; /* Adjust the spacing between the button and the text */
+    margin-top: 5px;
 }
 
 .play-icon {
     width: 50px;
     height: 50px;
-    margin-right: 10px; /* Adjust the spacing between the icon and the text */
+    margin-right: 10px;
 }
-
-body, html {
-    margin: 0;
-    padding: 0;
-}
-
-#info {
-    text-align: left;
-}
-
 
 .level-container {
     display: flex;
@@ -174,4 +178,48 @@ body, html {
 .level-analysis {
     flex: 1;
     padding: 10px;
+}
+
+.special-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.error-message {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.error-logo {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+.clipboard-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 5px;
+}
+
+.clipboard-button i {
+    color: #007BFF;
+    font-size: 16px;
+}
+
+.clipboard-button:hover i {
+    color: #0056b3;
+}
+
+.level-info div {
+    display: flex;
+    align-items: center;
+}
+
+.level-info strong {
+    margin-right: 5px;
 }
